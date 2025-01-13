@@ -32,18 +32,19 @@ class RadioPlayer:
     def play(self, station=None):
         if station:
             if station in self.stations:
+                if self.is_playing:
+                    self.stop()  # Stop current stream before switching
                 self.current_station = station
             else:
                 print(f"Station '{station}' not found")
                 return
                 
-        if not self.is_playing:
-            stream_url = self.get_stream_url(self.stations[self.current_station])
-            media = self.instance.media_new(stream_url)
-            self.player.set_media(media)
-            self.player.play()
-            self.is_playing = True
-            print(f"Playing {self.current_station.upper()}...")
+        stream_url = self.get_stream_url(self.stations[self.current_station])
+        media = self.instance.media_new(stream_url)
+        self.player.set_media(media)
+        self.player.play()
+        self.is_playing = True
+        print(f"Playing {self.current_station.upper()}...")
         
     def stop(self):
         self.player.stop()
