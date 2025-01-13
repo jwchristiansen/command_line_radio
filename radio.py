@@ -64,7 +64,8 @@ def handle_commands(radio):
     while True:
         command = input("\nEnter command (play/stop/volume/stations/quit): ").lower().strip()
         if command == 'play':
-            station = input("Enter station (or press Enter for current station): ").lower().strip()
+            stations_list = ', '.join(radio.stations.keys())
+            station = input(f"Enter station ({stations_list}) or press Enter for current station: ").lower().strip()
             radio.play(station if station else None)
         elif command == 'stop':
             radio.stop()
