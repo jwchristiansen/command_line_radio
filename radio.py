@@ -1,3 +1,18 @@
+import sys
+import subprocess
+
+def check_and_install_dependencies():
+    try:
+        import vlc
+    except ImportError:
+        print("VLC module not found. Installing dependencies...")
+        try:
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt'])
+            print("Dependencies installed successfully!")
+        except subprocess.CalledProcessError as e:
+            print(f"Error installing dependencies: {e}")
+            sys.exit(1)
+
 import vlc
 import time
 import threading
@@ -87,5 +102,6 @@ def handle_commands(radio):
             print("Unknown command")
 
 if __name__ == "__main__":
+    check_and_install_dependencies()
     radio = RadioPlayer()
     handle_commands(radio)
