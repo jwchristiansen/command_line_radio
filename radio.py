@@ -20,7 +20,7 @@ import urllib.request
 
 class RadioPlayer:
     def __init__(self):
-        self.instance = vlc.Instance()
+        self.instance = vlc.Instance('--quiet')  # Add quiet flag to suppress debug messages, disable with vlc.Instance()
         self.player = self.instance.media_player_new()
         self.stations = {
             'kexp': "https://kexp.streamguys1.com/kexp160.aac",
